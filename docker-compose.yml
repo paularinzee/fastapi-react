@@ -12,45 +12,18 @@ services:
       - ./nginx/nginx.dev.conf:/data/nginx/custom/http_top.conf
     depends_on:
       - frontend
-      - backend
-      - db
-      - adminer  
+      - backend 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
-    depends_on:
-      - db
-    env_file:
-      - backend/.env
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
-    env_file:
-      - frontend/.env
-
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: changethis123
-      POSTGRES_DB: app
-    ports:
-      - "5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  adminer:
-    image: adminer
-    ports:
-      - "8080:8080"
-volumes:
-  postgres_data:
-  data:
-  letsencrypt:
+      - "3000:3000"
+   
